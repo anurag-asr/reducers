@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import Button from "./Button";
 import {
   Decrementkarobhai,
@@ -9,6 +9,17 @@ import "./styles.css";
 
 export default function App() {
   const [state, disaptch] = useReducer(Reducer, { count: 0, payload: 1000 });
+  const [text, setText] = useState([]);
+  const handleChange = (e) => {
+    // console.log(e.target.value)
+    setText([
+      ...text,
+      {
+        value: e.target.value
+      }
+    ]);
+  };
+  // console.log(text[0].value)
 
   return (
     <div className="App">
@@ -18,17 +29,25 @@ export default function App() {
           disaptch(Incrementkarobhai);
         }}
       >
-        ADD
+        {" "}
+        ADD{" "}
       </Button>
-      {/* <button onClick={()=>{disaptch(Incrementkarobhai)}}>ADDKARO</button> */}
-
       <Button
         handlekaro={() => {
           disaptch(Decrementkarobhai);
         }}
       >
-        Reduce
+        Reduce{" "}
       </Button>
+      <input
+        placeholder="write here"
+        onChange={handleChange}
+        value={text.value}
+      />
+      {text.map((elem) => (
+        <div>{elem.value}</div>
+      ))}
+      {}
     </div>
   );
 }
